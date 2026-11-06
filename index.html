@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi CFD HKN Ke-62</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #00838F; /* Teal khas tema kesehatan */
+            --secondary-color: #00BFA5;
+            --bg-color: #E0F2F1;
+            --text-color: #333333;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #B2DFDB 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 131, 143, 0.08);
+            border-left: 5px solid transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 131, 143, 0.15);
+        }
+
+        .header-card {
+            border-top: none;
+            border-left: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Elemen dekoratif lingkaran di latar belakang header */
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .header-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+
+        .header-card h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+
+        .header-card p {
+            font-size: 13.5px;
+            opacity: 0.9;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        .question-card {
+            border-left-color: var(--secondary-color);
+        }
+
+        .question-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #263238;
+        }
+
+        .question-title i {
+            color: var(--primary-color);
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            background: #E0F2F1;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .required { color: #E53935; margin-left: 4px; font-weight: bold; }
+
+        input[type="text"], input[type="date"], input[type="time"] {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #E0E0E0;
+            padding: 10px 0 10px 5px;
+            font-size: 14.5px;
+            font-family: inherit;
+            background: transparent;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            color: var(--text-color);
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus {
+            outline: none;
+            border-bottom-color: var(--primary-color);
+        }
+
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            background: #FAFAFA;
+        }
+
+        .radio-label:hover {
+            background-color: #F1F8E9;
+            border-color: var(--secondary-color);
+        }
+
+        .radio-label input[type="radio"] {
+            margin-right: 12px;
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        button.submit-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button.submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 131, 143, 0.3);
+        }
+
+        button.submit-btn:disabled {
+            background: #BDBDBD;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ganti nama file ini sesuai lagu keroncong/pengiring yang Anda miliki di dalam folder yang sama -->
+    <audio id="bg-music" loop>
+        <source src="laguhkn.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <form id="absensiForm">
+            
+            <div class="card header-card">
+                <div class="header-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h1>Absensi Kegiatan CFD HKN Ke-62</h1>
+                <p>Formulir ini ditujukan untuk pendataan kehadiran pegawai Balai Kekarantinaan Kesehatan Kelas I Banjarmasin dalam kegiatan Car Free Day dalam rangka memperingati Hari Kesehatan Nasional (HKN) ke-62. Silakan isi data dengan lengkap.</p>
+            </div>
+
+            <div class="card question-card">
+                <div class="question-title">
+                    <i class="far fa-calendar-alt"></i> 
+                    Tanggal <span class="required">*</span>
+                </div>
+                <input type="date" name="tanggal" required>
+            </div>
+
+            <div class="card question-card">
+                <div class="question-title">
+                    <i class="far fa-clock"></i> 
+                    Jam <span class="required">*</span>
+                </div>
+                <input type="time" name="jam" required>
+            </div>
+
+            <div class="card question-card">
+                <div class="question-title">
+                    <i class="fas fa-user-nurse"></i> 
+                    Nama Lengkap <span class="required">*</span>
+                </div>
+                <input type="text" name="nama" placeholder="Masukkan nama Anda" required>
+            </div>
+
+            <div class="card question-card">
+                <div class="question-title">
+                    <i class="fas fa-id-badge"></i> 
+                    Pangkat / Jabatan <span class="required">*</span>
+                </div>
+                <input type="text" name="pangkat" placeholder="Contoh: Penata Muda / Sanitarian Pertama" required>
+            </div>
+
+            <div class="card question-card">
+                <div class="question-title">
+                    <i class="fas fa-layer-group"></i> 
+                    Golongan <span class="required">*</span>
+                </div>
+                <input type="text" name="golongan" placeholder="Contoh: III/a" required>
+            </div>
+
+            <div class="card question-card">
+                <div class="question-title">
+                    <i class="fas fa-id-card"></i> 
+                    NIP <span class="required">*</span>
+                </div>
+                <input type="text" name="nip" placeholder="Masukkan NIP Anda" required>
+            </div>
+
+            <div class="card question-card">
+                <div class="question-title">
+                    <i class="fas fa-users"></i> 
+                    Anggota <span class="required">*</span>
+                </div>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="anggota" value="Timker 1" required> Timker 1</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Timker 2"> Timker 2</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Timker 3"> Timker 3</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Timker 4"> Timker 4</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Timker 5"> Timker 5</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Adum"> Adum</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Bandara Syamsudin Noor"> Bandara Syamsudin Noor</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Sungai Puting"> Sungai Puting</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Kintap"> Kintap</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Satui"> Satui</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Batulicin"> Batulicin</label>
+                    <label class="radio-label"><input type="radio" name="anggota" value="Kotabaru"> Kotabaru</label>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 40px;">
+                <button type="submit" id="btnSubmit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Kirim Data Absensi
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Trigger musik untuk otomatis berputar ketika pengguna pertama kali mengklik atau menyentuh area form
+        document.body.addEventListener('pointerdown', function() {
+            const music = document.getElementById('bg-music');
+            if (music.paused) {
+                music.play().catch(e => console.log("Autoplay dicegah oleh browser"));
+            }
+        }, { once: true });
+
+        // Ganti string di bawah ini dengan URL Deployment Google Apps Script Anda
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzeBqaik9drc3qNZDCsfP0RkfEHPyE2GDg4raWcKhdTCRdbd0Svx-C21tF7kG0Y6ylZ_Q/exec'; 
+        const form = document.forms['absensiForm'];
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            // Animasi loading pada tombol
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan data...';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    alert('Data Absensi Berhasil Disimpan!');
+                    form.reset();
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Data Absensi';
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Terjadi kesalahan koneksi. Silakan coba lagi.');
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Data Absensi';
+                });
+        });
+    </script>
+</body>
+</html>
