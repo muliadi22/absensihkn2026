@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absensi CFD HKN Ke-62</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #00838F; /* Teal khas tema kesehatan */
+            --primary-color: #00838F;
             --secondary-color: #00BFA5;
             --bg-color: #E0F2F1;
             --text-color: #333333;
@@ -59,7 +57,6 @@
             overflow: hidden;
         }
 
-        /* Elemen dekoratif lingkaran di latar belakang header */
         .header-card::before {
             content: '';
             position: absolute;
@@ -205,8 +202,8 @@
 </head>
 <body>
 
-    <!-- Ganti nama file ini sesuai lagu keroncong/pengiring yang Anda miliki di dalam folder yang sama -->
-    <audio id="bg-music" loop>
+    <!-- Pastikan nama file lagu sesuai persis dengan yang ada di folder Anda -->
+    <audio id="bg-music" loop preload="auto">
         <source src="laguhkn.mp3" type="audio/mpeg">
     </audio>
 
@@ -299,13 +296,27 @@
     </div>
 
     <script>
-        // Trigger musik untuk otomatis berputar ketika pengguna pertama kali mengklik atau menyentuh area form
-        document.body.addEventListener('pointerdown', function() {
-            const music = document.getElementById('bg-music');
-            if (music.paused) {
-                music.play().catch(e => console.log("Autoplay dicegah oleh browser"));
+        // Memaksa musik agar berputar segera setelah user berinteraksi dengan layar
+        // Ini tidak menggunakan tombol, tapi memanfaatkan klik pertama di manapun.
+        const music = document.getElementById('bg-music');
+        let musicStarted = false;
+
+        function startMusic() {
+            if (!musicStarted) {
+                music.play().then(() => {
+                    musicStarted = true;
+                }).catch(e => {
+                    console.log("Autoplay ditolak oleh HP. Menunggu interaksi lain.");
+                });
             }
-        }, { once: true });
+        }
+
+        // Mendaftarkan berbagai jenis interaksi agar musik bisa tertrigger tanpa tombol
+        window.addEventListener('click', startMusic, { once: true });
+        window.addEventListener('touchstart', startMusic, { once: true });
+        window.addEventListener('scroll', startMusic, { once: true });
+        window.addEventListener('keydown', startMusic, { once: true });
+
 
         // Ganti string di bawah ini dengan URL Deployment Google Apps Script Anda
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzeBqaik9drc3qNZDCsfP0RkfEHPyE2GDg4raWcKhdTCRdbd0Svx-C21tF7kG0Y6ylZ_Q/exec'; 
